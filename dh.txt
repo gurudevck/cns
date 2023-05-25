@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<math.h>
+long long int power(long long int a, long long int b, long long int p)
+{
+if(b==1)
+return a;
+else 
+return (((long long int)pow(a,b))%p);
+}
+int main()
+{
+long long int P,G,x,a,y,b,ka,kb;
+printf("value of P");
+scanf("%d",&P);
+printf("value of G");
+scanf("%d",&G);
+printf("private key for alice : ");
+scanf("%lld",&a);
+printf("private key for bob : ");
+scanf("%lld",&b);
+x=power(G,b,P);
+ka=power(y,a,P);
+kb=power(x,b,P);
+printf(ka);
+printf(kb);
+}
