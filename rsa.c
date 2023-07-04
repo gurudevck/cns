@@ -55,6 +55,8 @@ d=i;
 printf("Enter message: ");
 scanf("%d", &data);
 cipher = powmod(data, e, n);
+printf("Value of e is %d : ",e);
+printf("Value of d is %d : ",d);
 printf("encryption: %d\n", cipher);
 decrypt = powmod(cipher, d, n);
 printf("decryption: %d\n", decrypt);
