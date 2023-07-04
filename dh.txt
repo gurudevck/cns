@@ -1,25 +1,17 @@
-/* This program calculates the Key for two persons
-using the Diffie-Hellman Key exchange algorithm */
 #include <math.h>
 #include <stdio.h>
 
 // Power function to return value of a ^ b mod P
-long long int power(long long int a, long long int b,
-					long long int P)
+long long int power(long long int a, long long int b, long long int P)
 {
 	if (b == 1)
 		return a;
-
 	else
 		return (((long long int)pow(a, b)) % P);
 }
-
-// Driver program
 int main()
 {
 	long long int P, G, x, a, y, b, ka, kb;
-
-	// Both the persons will be agreed upon the
 	// public keys G and P
 	P = 23; // A prime number P is taken
 	printf("The value of P : %lld\n", P);
@@ -38,7 +30,6 @@ int main()
 	y = power(G, b, P); // gets the generated key
 
 	// Generating the secret key after the exchange
-	// of keys
 	ka = power(y, a, P); // Secret key for Alice
 	kb = power(x, b, P); // Secret key for Bob
 
