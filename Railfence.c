@@ -1,37 +1,68 @@
 #include<stdio.h>
-#include<ctype.h>
 #include<string.h>
 
-void decrypt();
-void encrypt();
+char x[];
 
-void main()
-{
-    char pt[50],key[10],enc[50];
-    printf("enter plain text:\n");
-    scanf("%s",pt);
-    printf("enter key:\n");
-    scanf("%s",key);
-    encrypt(pt,key,enc);
-    printf("encrypted text: %s\n",enc);
-    decrypt(enc,key);
-    printf("decrypted key: %s\n",enc);
-    
+void encryptMsg(char msg[], int key){
+int msgLen=strlen(msg),i,j,k=-1,row=0,col=0,c=0;
+char railMatrix[key][msgLen];
+
+for(i=0;i<key;++i)
+    for(j=0;j<msgLen;++j)
+        railMatrix[i][j]='\n';
+
+for(i=0;i<msgLen;++i){
+railMatrix[row][col++]=msg[i];
+if(row==0||row==key-1)
+    k=k*(-1);
+row=row+k;
 }
 
-void encrypt(char pt[],char key[],char enc[])
-{
-    int t=strlen(pt);
-    int k =strlen(key);
-    int i=0;
-    for(;pt[i]!='\0';i++)
-        enc[i]=(char)(((pt[i])-65)+(key[i%k]-65))%26+65;
-    enc[i]='\0';
+printf("\nEncrypted Message : ");
+for(i=0;i<key;++i)
+for(j=0;j<msgLen;++j){
+if(railMatrix[i][j]!='\n'){
+printf("%c",railMatrix[i][j]);
+x[c++]=railMatrix[i][j];
 }
-void decrypt(char enc[],char key[]){
-    int t = strlen(enc);
-    int k = strlen(key);
-    int i=0;
-    for(;enc[i]!='\0';i++)
-        enc[i]=(char)((enc[i]-65)-(key[i%k]-65)+26)%26+65;
+}
+
+void decryptMsg(char x[], int key){
+int msgLen=strlen(x),i,j,k=-1,row=0,col=0,m=0;
+char railMatrix[key][msgLen];
+
+for(i=0;i<key;++i)
+    for(j=0;j<msgLen;++j)
+        railMatrix[i][j]='\n';
+
+for(i=0;i<msgLen;++i){
+railMatrix[row][col++]='*';
+if(row==0||row==key-1)
+    k=k*(-1);
+row=row+k;
+}
+
+for(i=0;i<key;++i)
+for(j=0;j<msgLen;++j)
+if(railMatrix[i][j]=='*')
+    railMatrix[i][j]=x[m++];
+
+row=0, col=0, k=-1;
+
+printf("Decrypted Message : ");
+for(i=0;i<msgLen;++i){
+printf("%c",railMatrix[row][col++]);
+if(row==0||row==key-1)
+    k=k*(-1);
+row=row+k;
+}
+}
+
+int main(){
+char msg[]="iamincnslsb";
+int key=3;
+printf("Original Message : %s",msg);
+encryptMsg(msg,key);
+decryptMsg(x,key);
+return 0;
 }
